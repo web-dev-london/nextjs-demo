@@ -25,7 +25,10 @@ interface User {
 }
 
 const UsersPage = async () => {
-  const res = await fetch('https://jsonplaceholder.typicode.com/users')
+  // cashing only with fetch, but third library can not work with this
+  const res = await fetch('https://jsonplaceholder.typicode.com/users', {
+    cache: 'no-store',
+  })
   const users: User[] = await res.json();
 
 
@@ -33,6 +36,7 @@ const UsersPage = async () => {
   return (
     <>
       <h1>Users</h1>
+      <p>{new Date().toLocaleTimeString()}</p>
       <ul>
         {users.map((user: User) => (
           <li key={user.id}>{user.name}</li>
